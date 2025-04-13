@@ -59,6 +59,7 @@ interface BudgetDataItem {
   increase: number;
   decrease: number;
   committed: number;
+  coordinates: { lat: number; lng: number } | null;
 }
 
 const Index = () => {
@@ -67,16 +68,18 @@ const Index = () => {
   const [amountProject, setAmountProject] = useState<number>(0);
   const [completedProjectCount, setCompletedProjectCount] = useState<number>(0);
   const [topProjects, setTopProjects] = useState<Project[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchBudgetData = async () => {
       try {
+        setIsLoading(true);
         const response = await fetch('/20250121-lpao-budgeting.json');
         const data = await response.json();
         setBudgetData(data.summary);
         setDate(data.metadata.date);
         setAmountProject(data.budget_data.length);
-        
+
         // คำนวณจำนวนโครงการที่เบิกจ่ายครบ (remaining === 0)
         const completed = data.budget_data.filter(item => item.remaining === 0).length;
         setCompletedProjectCount(completed);
@@ -97,7 +100,8 @@ const Index = () => {
             remaining: item.remaining,
             increase: item.increase,
             decrease: item.decrease,
-            committed: item.committed
+            committed: item.committed,
+            coordinates: item.coordinates || null,
           }))
           .sort((a, b) => b.budget - a.budget)
           .slice(0, 5);
@@ -105,6 +109,8 @@ const Index = () => {
         setTopProjects(transformedProjects);
       } catch (error) {
         console.error('Error fetching budget data:', error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -140,6 +146,14 @@ const Index = () => {
   const inProgressProjects = useMemo(() => {
     return amountProject - completedProjectCount;
   }, [amountProject, completedProjectCount]);
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -192,7 +206,7 @@ const Index = () => {
               <BudgetAllocationChart data={budgetAllocationData} />
             </CardContent>
           </Card>
-          
+
           <Card>
             <CardHeader>
               <CardTitle className="text-lg sm:text-xl">ความคืบหน้าการเบิกจ่ายงบประมาณ</CardTitle>
@@ -215,7 +229,7 @@ const Index = () => {
               </CardDescription>
             </div>
             <Button variant="outline" asChild className="w-full sm:w-auto">
-              <Link to="/projects" className="flex items-center justify-center gap-2">
+              <Link to="/projects" className="flex items-center justify-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90">
                 ดูโครงการทั้งหมด
                 <ArrowRight className="h-4 w-4" />
               </Link>
