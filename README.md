@@ -27,8 +27,8 @@
 
 1. โคลนโปรเจค:
 ```bash
-git clone https://github.com/your-username/lamphun-budget-vision.git
-cd lamphun-budget-vision
+git clone https://github.com/lamphunpao/budgeting.git
+cd budgeting
 ```
 
 2. ติดตั้ง dependencies:
@@ -49,7 +49,7 @@ npm run build
 ## โครงสร้างโปรเจค
 
 ```
-lamphun-budget-vision/
+budgeting/
 ├── public/                 # ไฟล์สาธารณะ
 │   └── 20250121-lpao-budgeting.json  # ข้อมูลงบประมาณ
 ├── src/
