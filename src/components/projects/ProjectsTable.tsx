@@ -17,6 +17,7 @@ import {
   MapPin 
 } from "lucide-react";
 import { useNavigate } from 'react-router-dom';
+import React from 'react';
 
 interface Project {
   id: string;
@@ -121,23 +122,22 @@ const ProjectsTable = ({ projects }: ProjectsTableProps) => {
           <TableBody>
             {paginatedProjects.length > 0 ? (
               paginatedProjects.map((project) => (
-                <>
-                  <TableRow 
-                    key={project.id} 
+                <React.Fragment key={project.id}>
+                  <TableRow
                     className="cursor-pointer hover:bg-muted/50 border-b"
                     onClick={() => toggleRow(project.id)}
                   >
                     <TableCell className="w-[3%] text-center">
-                      <Button 
-                        variant="ghost" 
-                        size="icon" 
+                      <Button
+                        variant="ghost"
+                        size="icon"
                         className="h-4 w-4 p-0"
                         onClick={(e) => {
                           e.stopPropagation();
                           toggleRow(project.id);
                         }}
                       >
-                        {expandedRows.includes(project.id) ? '▼' : '▶'}
+                        {expandedRows.includes(project.id) ? "▼" : "▶"}
                       </Button>
                     </TableCell>
                     <TableCell className="font-medium whitespace-normal">
@@ -157,14 +157,12 @@ const ProjectsTable = ({ projects }: ProjectsTableProps) => {
                     <TableCell className="text-right font-medium tabular-nums">
                       {formatCurrency(project.remaining)}
                     </TableCell>
-                    <TableCell>
-                      {getStatusBadge(project.status)}
-                    </TableCell>
+                    <TableCell>{getStatusBadge(project.status)}</TableCell>
                     <TableCell className="text-center">
                       {project.hasLocation ? (
-                        <Button 
-                          variant="ghost" 
-                          size="icon" 
+                        <Button
+                          variant="ghost"
+                          size="icon"
                           className="hover:text-primary"
                           onClick={(e) => {
                             e.stopPropagation();
@@ -174,7 +172,9 @@ const ProjectsTable = ({ projects }: ProjectsTableProps) => {
                           <MapPin className="h-4 w-4" />
                         </Button>
                       ) : (
-                        <span className="text-muted-foreground text-sm">ไม่มีข้อมูล</span>
+                        <span className="text-muted-foreground text-sm">
+                          ไม่มีข้อมูล
+                        </span>
                       )}
                     </TableCell>
                   </TableRow>
@@ -183,22 +183,34 @@ const ProjectsTable = ({ projects }: ProjectsTableProps) => {
                       <TableCell colSpan={7} className="py-3">
                         <div className="grid grid-cols-3 gap-4 px-4">
                           <div>
-                            <div className="text-sm text-muted-foreground mb-1">งบผูกพัน</div>
-                            <div className="font-medium tabular-nums">{formatCurrency(project.committed)}</div>
+                            <div className="text-sm text-muted-foreground mb-1">
+                              งบผูกพัน
+                            </div>
+                            <div className="font-medium tabular-nums">
+                              {formatCurrency(project.committed)}
+                            </div>
                           </div>
                           <div>
-                            <div className="text-sm text-muted-foreground mb-1">งบโอนเพิ่ม</div>
-                            <div className="font-medium text-green-600 tabular-nums">+{formatCurrency(project.increase)}</div>
+                            <div className="text-sm text-muted-foreground mb-1">
+                              งบโอนเพิ่ม
+                            </div>
+                            <div className="font-medium text-green-600 tabular-nums">
+                              +{formatCurrency(project.increase)}
+                            </div>
                           </div>
                           <div>
-                            <div className="text-sm text-muted-foreground mb-1">งบโอนลด</div>
-                            <div className="font-medium text-red-600 tabular-nums">-{formatCurrency(project.decrease)}</div>
+                            <div className="text-sm text-muted-foreground mb-1">
+                              งบโอนลด
+                            </div>
+                            <div className="font-medium text-red-600 tabular-nums">
+                              -{formatCurrency(project.decrease)}
+                            </div>
                           </div>
                         </div>
                       </TableCell>
                     </TableRow>
                   )}
-                </>
+                </React.Fragment>
               ))
             ) : (
               <TableRow>
@@ -215,7 +227,10 @@ const ProjectsTable = ({ projects }: ProjectsTableProps) => {
       <div className="md:hidden space-y-4">
         {paginatedProjects.length > 0 ? (
           paginatedProjects.map((project) => (
-            <div key={project.id} className="bg-white rounded-lg border p-4 space-y-3">
+            <div
+              key={project.id}
+              className="bg-white rounded-lg border p-4 space-y-3"
+            >
               <div className="space-y-1">
                 <h3 className="font-medium text-base break-words">
                   {project.name}
@@ -224,40 +239,54 @@ const ProjectsTable = ({ projects }: ProjectsTableProps) => {
                   {project.category}
                 </p>
               </div>
-              
+
               <div className="space-y-2">
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-muted-foreground">งบประมาณ</span>
-                  <span className="font-medium">{formatCurrency(project.budget)}</span>
+                  <span className="font-medium">
+                    {formatCurrency(project.budget)}
+                  </span>
                 </div>
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-muted-foreground">เบิกจ่าย</span>
-                  <span className="font-medium">{formatCurrency(project.disbursed)}</span>
+                  <span className="font-medium">
+                    {formatCurrency(project.disbursed)}
+                  </span>
                 </div>
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-muted-foreground">คงเหลือ</span>
-                  <span className="font-medium">{formatCurrency(project.remaining)}</span>
+                  <span className="font-medium">
+                    {formatCurrency(project.remaining)}
+                  </span>
                 </div>
-                <Button 
-                  variant="ghost" 
+                <Button
+                  variant="ghost"
                   className="w-full text-primary justify-start p-0 h-auto hover:bg-transparent"
                   onClick={() => toggleRow(project.id)}
                 >
-                  <span className="text-sm underline">ดูรายละเอียดเพิ่มเติม</span>
+                  <span className="text-sm underline">
+                    ดูรายละเอียดเพิ่มเติม
+                  </span>
                 </Button>
                 {expandedRows.includes(project.id) && (
                   <div className="space-y-2 pt-2 border-t">
                     <div className="flex items-center justify-between text-sm">
                       <span className="text-muted-foreground">งบผูกพัน</span>
-                      <span className="font-medium">{formatCurrency(project.committed)}</span>
+                      <span className="font-medium">
+                        {formatCurrency(project.committed)}
+                      </span>
                     </div>
                     <div className="flex items-center justify-between text-sm">
                       <span className="text-muted-foreground">งบโอนเพิ่ม</span>
-                      <span className="font-medium text-green-600">+{formatCurrency(project.increase)}</span>
+                      <span className="font-medium text-green-600">
+                        +{formatCurrency(project.increase)}
+                      </span>
                     </div>
                     <div className="flex items-center justify-between text-sm">
                       <span className="text-muted-foreground">งบโอนลด</span>
-                      <span className="font-medium text-red-600">-{formatCurrency(project.decrease)}</span>
+                      <span className="font-medium text-red-600">
+                        -{formatCurrency(project.decrease)}
+                      </span>
                     </div>
                   </div>
                 )}
@@ -265,15 +294,17 @@ const ProjectsTable = ({ projects }: ProjectsTableProps) => {
 
               <div className="flex items-center justify-between">
                 <div className="text-sm text-muted-foreground">
-                  {project.location !== '-' ? project.location : 'ไม่ระบุพื้นที่'}
+                  {project.location !== "-"
+                    ? project.location
+                    : "ไม่ระบุพื้นที่"}
                 </div>
                 {getStatusBadge(project.status)}
               </div>
 
               {project.hasLocation && (
                 <div className="flex justify-end pt-2 border-t">
-                  <Button 
-                    variant="ghost" 
+                  <Button
+                    variant="ghost"
                     size="sm"
                     className="text-primary hover:text-primary/80"
                     onClick={() => handleMapClick(project.id)}
@@ -297,7 +328,9 @@ const ProjectsTable = ({ projects }: ProjectsTableProps) => {
           <Button
             variant="outline"
             size="icon"
-            onClick={() => setCurrentPage(currentPage > 1 ? currentPage - 1 : 1)}
+            onClick={() =>
+              setCurrentPage(currentPage > 1 ? currentPage - 1 : 1)
+            }
             disabled={currentPage === 1}
           >
             <ChevronLeft className="h-4 w-4" />
@@ -308,7 +341,11 @@ const ProjectsTable = ({ projects }: ProjectsTableProps) => {
           <Button
             variant="outline"
             size="icon"
-            onClick={() => setCurrentPage(currentPage < totalPages ? currentPage + 1 : totalPages)}
+            onClick={() =>
+              setCurrentPage(
+                currentPage < totalPages ? currentPage + 1 : totalPages
+              )
+            }
             disabled={currentPage === totalPages}
           >
             <ChevronRight className="h-4 w-4" />
