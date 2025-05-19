@@ -41,7 +41,8 @@ const ProjectMapPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/20250121-lpao-budgeting.json');
+        // const response = await fetch('/20250121-lpao-budgeting.json');
+        const response = await fetch('/20250519-eplan.json');
         const data = await response.json();
         
         // แปลงข้อมูลจาก JSON เป็นรูปแบบที่ต้องการ
@@ -76,6 +77,7 @@ const ProjectMapPage = () => {
       <PageContainer
         title="แผนที่โครงการ"
         description="แสดงตำแหน่งที่ตั้งโครงการบนแผนที่"
+        // date={date}
       >
         {loading ? (
           <div className="flex items-center justify-center h-[500px]">

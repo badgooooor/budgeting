@@ -27,14 +27,11 @@ const Header = () => {
                 <Link to="/" className="flex items-center gap-2 text-lg font-medium">
                   หน้าหลัก
                 </Link>
-                <Link to="/projects" className="flex items-center gap-2 text-lg font-medium">
-                  โครงการทั้งหมด
+                <Link to="/public-projects" className="flex items-center gap-2 text-lg font-medium">
+                  โครงการสาธารณะ
                 </Link>
                 <Link to="/map" className="flex items-center gap-2 text-lg font-medium">
                   แผนที่โครงการ
-                </Link>
-                <Link to="/reports" className="flex items-center gap-2 text-lg font-medium">
-                  รายงาน
                 </Link>
               </nav>
             </SheetContent>
@@ -53,14 +50,11 @@ const Header = () => {
             <Link to="/" className="text-sm font-medium transition-colors hover:text-primary">
               หน้าหลัก
             </Link>
-            <Link to="/projects" className="text-sm font-medium transition-colors hover:text-primary">
-              โครงการทั้งหมด
+            <Link to="/public-projects" className="text-sm font-medium transition-colors hover:text-primary">
+              โครงการสาธารณะ
             </Link>
             <Link to="/map" className="text-sm font-medium transition-colors hover:text-primary">
               แผนที่โครงการ
-            </Link>
-            <Link to="/reports" className="text-sm font-medium transition-colors hover:text-primary">
-              รายงาน
             </Link>
           </nav>
         </div>

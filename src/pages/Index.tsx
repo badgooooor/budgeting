@@ -11,6 +11,17 @@ import ProjectsTable from '@/components/projects/ProjectsTable';
 import { ArrowUpRight, ArrowDownRight, Layers, Building, Landmark, ArrowRight } from 'lucide-react';
 import { formatNumber, formatCurrency, formatPercentage } from '@/lib/utils';
 
+interface PublicDataSummary {
+  total: {
+    approved: number;
+    disbursed: number;
+    committed: number;
+    remaining: number;
+  };
+  metadata: {
+    total_projects: number;
+  };
+}
 interface Project {
   id: string;
   name: string;
@@ -69,6 +80,38 @@ const Index = () => {
   const [completedProjectCount, setCompletedProjectCount] = useState<number>(0);
   const [topProjects, setTopProjects] = useState<Project[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  // const [publicProjects, setPublicProjects] = useState<Project[]>([]);
+  const [publicDataSummary, setPublicDataSummary] = useState<{
+    total: {
+      approved: number;
+      disbursed: number;
+      committed: number;
+      remaining: number;
+    };
+  } | null>(null);
+  const [publicProjectsLoading, setPublicProjectsLoading] = useState(true);
+  const [publicProjectsDate, setPublicProjectsDate] = useState<string | null>(null);
+  const [publicProjectsCount, setPublicProjectsCount] = useState<number>(0);
+
+  const fetchPublicProjects = async () => {
+    try {
+      const response = await fetch('/20250519-eplan.json');
+      const data = await response.json();
+      // setPublicProjects(data.budget_data);
+      setPublicProjectsDate(data.metadata.date);
+      setPublicDataSummary(data.summary);
+      setPublicProjectsCount(data.metadata.total_projects);
+    } catch (error) {
+      console.error('Error fetching public projects:', error);
+    } finally {
+      setPublicProjectsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchPublicProjects();
+  }, []);
 
   useEffect(() => {
     const fetchBudgetData = async () => {
@@ -129,15 +172,14 @@ const Index = () => {
       .sort((a, b) => b.value - a.value);
   }, [budgetData]);
 
-  const budgetProgressData = useMemo(() => {
-    if (!budgetData?.total) return [];
+  const publicBudgetProgressData = useMemo(() => {
+    if (!publicDataSummary) return [];
 
     return [
-      { name: 'เบิกจ่าย', value: budgetData.total.disbursed, color: '#4ade80' },
-      { name: 'ผูกพัน', value: budgetData.total.committed, color: '#f59e0b' },
-      { name: 'งบประมาณคงเหลือ', value: budgetData.total.remaining, color: '#94a3b8' },
+      { name: 'เบิกจ่าย', value: publicDataSummary?.total.disbursed, color: '#4ade80' },
+      { name: 'งบประมาณคงเหลือ', value: publicDataSummary.total.remaining, color: '#94a3b8' },
     ];
-  }, [budgetData]);
+  }, [publicDataSummary]);
 
   const completedProjects = useMemo(() => {
     return completedProjectCount;
@@ -161,7 +203,7 @@ const Index = () => {
       <PageContainer
         title="ภาพรวมงบประมาณ"
         description="แสดงข้อมูลงบประมาณประจำปี 2568 ขององค์การบริหารส่วนจังหวัดลำพูน"
-        date={date}
+        date={publicProjectsDate}
       >
         <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
           <StatCard
@@ -173,23 +215,22 @@ const Index = () => {
             icon={<Layers />}
           />
           <StatCard
-            title="เบิกจ่ายแล้ว"
-            value={formatCurrency(budgetData?.total.disbursed)}
-            description={`คิดเป็น ${formatPercentage(budgetData?.total.disbursed, budgetData?.total.approved)} ของงบทั้งหมด`}
+            title="โครงการสาธารณะ"
+            value={formatCurrency(publicDataSummary?.total.approved)}
+            description={`คิดเป็น ${formatPercentage(publicDataSummary?.total.approved, budgetData?.total.approved)} ของงบทั้งหมด`}
             trend="up"
             icon={<ArrowUpRight />}
           />
           <StatCard
-            title="จำนวนโครงการ"
+            title="จำนวนรายการ"
             value={`${formatNumber(amountProject)} โครงการ`}
-            description={`เบิกจ่ายครบ ${formatNumber(completedProjects)} จาก ${formatNumber(amountProject)} โครงการ`}
+            description={`จำนวนโครงการทั้งหมดในข้อบัญญัติ`}
             icon={<Landmark />}
           />
           <StatCard
-            title="โครงการที่เบิกครบ"
-            value={`${formatNumber(completedProjects)} โครงการ`}
-            description={`คิดเป็น ${formatPercentage(completedProjects, amountProject)} ของโครงการทั้งหมด`}
-            trend="up"
+            title="จำนวนโครงการสาธารณะ"
+            value={`${formatNumber(publicProjectsCount)} โครงการ`}
+            description={`จำนวนโครงการสาธารณะในข้อบัญญัติ`}
             icon={<Building />}
           />
         </div>
@@ -211,16 +252,16 @@ const Index = () => {
             <CardHeader>
               <CardTitle className="text-lg sm:text-xl">ความคืบหน้าการเบิกจ่ายงบประมาณ</CardTitle>
               <CardDescription className="text-sm sm:text-base">
-                เปรียบเทียบงบประมาณที่ตั้งไว้กับการเบิกจ่ายจริง
+                เปรียบเทียบเบิกจ่ายงบประมาณโครงการสาธารณะ
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <BudgetProgressChart data={budgetProgressData} />
+              <BudgetProgressChart data={publicBudgetProgressData} />
             </CardContent>
           </Card>
         </div>
 
-        <Card className="mt-4">
+        {/* <Card className="mt-4">
           <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-2 sm:space-y-0">
             <div className="space-y-1.5">
               <CardTitle className="text-lg sm:text-xl">โครงการก่อสร้างมูลค่าสูงสุด</CardTitle>
@@ -229,8 +270,8 @@ const Index = () => {
               </CardDescription>
             </div>
             <Button variant="outline" asChild className="w-full sm:w-auto">
-              <Link to="/projects" className="flex items-center justify-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90">
-                ดูโครงการทั้งหมด
+              <Link to="/public-projects" className="flex items-center justify-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90">
+                ดูโครงการสาธารณะ
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
@@ -238,7 +279,7 @@ const Index = () => {
           <CardContent>
             <ProjectsTable projects={topProjects} />
           </CardContent>
-        </Card>
+        </Card> */}
       </PageContainer>
     </>
   );

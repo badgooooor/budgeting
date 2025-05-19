@@ -143,9 +143,9 @@ const ProjectsTable = ({ projects }: ProjectsTableProps) => {
                     <TableCell className="font-medium whitespace-normal">
                       <div className="break-words">
                         {project.name}
-                        <div className="text-xs text-muted-foreground mt-0.5">
+                        {/* <div className="text-xs text-muted-foreground mt-0.5">
                           หมวด: {project.category}
-                        </div>
+                        </div> */}
                       </div>
                     </TableCell>
                     <TableCell className="text-right font-medium tabular-nums">
