@@ -67,8 +67,8 @@ const ProjectMap = ({ projects }: ProjectMapProps) => {
             maxzoom: 22
           }]
         },
-        center: [99.0, 18.5], // ลำพูน
-        zoom: 10,
+        center: [98.93273443954536, 18.09850631134027], // ลำพูน
+        zoom: 8,
         attributionControl: false
       });
 
@@ -88,8 +88,8 @@ const ProjectMap = ({ projects }: ProjectMapProps) => {
         // Add markers for each project
         projects.forEach(project => {
           const marker = new maplibregl.Marker({
-            color: project.status === 'completed' ? '#4ade80' : 
-                   project.status === 'in-progress' ? '#f59e0b' : '#94a3b8'
+            color: project.status === 'completed' ? '#4ade80' :
+              project.status === 'in-progress' ? '#f59e0b' : '#94a3b8'
           })
             .setLngLat([project.coordinates.lng, project.coordinates.lat])
             .setPopup(
@@ -197,12 +197,12 @@ const ProjectMap = ({ projects }: ProjectMapProps) => {
                   </div>
                 </div>
               ) : ( */}
-                <div className="h-full w-full relative" ref={mapContainer} />
+              <div className="h-full w-full relative" ref={mapContainer} />
               {/* )} */}
             </CardContent>
           </Card>
         </div>
-        
+
         <div>
           <Card className="h-[500px]">
             <CardHeader className="p-4">
@@ -218,7 +218,7 @@ const ProjectMap = ({ projects }: ProjectMapProps) => {
                     <h3 className="font-medium text-lg">{selectedProject.name}</h3>
                     <p className="text-sm text-muted-foreground">{selectedProject.category}</p>
                   </div>
-                  
+
                   <div className="space-y-2">
                     <div className="flex justify-between">
                       <span className="text-sm">งบประมาณ:</span>
@@ -233,16 +233,18 @@ const ProjectMap = ({ projects }: ProjectMapProps) => {
                       <span className="font-medium">{formatCurrency(selectedProject.budget - selectedProject.spent)}</span>
                     </div>
                   </div>
-                  
+
                   <div>
                     <p className="text-sm font-medium">สถานที่:</p>
                     <p className="text-sm">{selectedProject.location}</p>
                   </div>
-                  
+
                   <div>
                     <p className="text-sm font-medium">พิกัด:</p>
                     <p className="text-sm">
                       Lat: {selectedProject.coordinates.lat}, Lng: {selectedProject.coordinates.lng}
+                      <br />
+                      <span className="text-xs text-muted-foreground">พิกัดอาจคาดเคลื่อน</span>
                     </p>
                   </div>
                 </div>

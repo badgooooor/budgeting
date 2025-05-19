@@ -23,7 +23,7 @@ const StatCard = ({
   className
 }: StatCardProps) => {
   return (
-    <Card className={cn("overflow-hidden card-hover", className)}>
+    <Card className={cn("overflow-hidden", className)}>
       <div className="absolute inset-0 from-primary/5 to-transparent rounded-lg"></div>
       <CardHeader className="flex flex-row items-center justify-between pb-2 relative z-10">
         <CardTitle className="text-sm font-medium">{title}</CardTitle>

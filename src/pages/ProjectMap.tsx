@@ -4,20 +4,14 @@ import PageContainer from '@/components/layout/PageContainer';
 import ProjectMap from '@/components/map/ProjectMap';
 
 interface BudgetDataItem {
-  category_1: string;
-  type: string;
-  category_2: string;
-  project: string;
-  approved: number;
-  increase: number;
+  id: string;
+  name: string;
+  budget: number;
   decrease: number;
-  committed: number;
+  increase: number;
   disbursed: number;
   remaining: number;
-  coordinates?: {
-    lat: number;
-    lng: number;
-  };
+  coordinates: [number, number] | null;
 }
 
 interface Project {
@@ -41,23 +35,25 @@ const ProjectMapPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // const response = await fetch('/20250121-lpao-budgeting.json');
         const response = await fetch('/20250519-eplan.json');
         const data = await response.json();
         
         // แปลงข้อมูลจาก JSON เป็นรูปแบบที่ต้องการ
         const mappedProjects = data.budget_data
           .filter((item: BudgetDataItem) => item.coordinates) // กรองเฉพาะที่มีพิกัด
-          .map((item: BudgetDataItem, index: number) => ({
-            id: `project-${index}`,
-            name: item.project,
-            category: item.category_1,
-            budget: item.approved,
+          .map((item: BudgetDataItem) => ({
+            id: item.id,
+            name: item.name,
+            category: 'โครงการสาธารณะ',
+            budget: item.budget,
             spent: item.disbursed,
-            location: 'ลำพูน', // ตั้งค่าเริ่มต้น
+            location: 'ลำพูน',
             status: item.remaining === 0 ? 'completed' : 
                    item.disbursed > 0 ? 'in-progress' : 'planned',
-            coordinates: item.coordinates!
+            coordinates: {
+              lng: item.coordinates![0],
+              lat: item.coordinates![1]
+            }
           }));
 
         setProjects(mappedProjects);
@@ -76,8 +72,7 @@ const ProjectMapPage = () => {
       <Header />
       <PageContainer
         title="แผนที่โครงการ"
-        description="แสดงตำแหน่งที่ตั้งโครงการบนแผนที่"
-        // date={date}
+        description="แสดงตำแหน่งที่ตั้งโครงการสาธารณะบนแผนที่"
       >
         {loading ? (
           <div className="flex items-center justify-center h-[500px]">
