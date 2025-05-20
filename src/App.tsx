@@ -18,14 +18,14 @@ const App = () => (
       <div className="min-h-screen bg-background overflow-hidden">
         {/* Notification Bar */}
         <div className="w-full bg-red-500 text-white py-2 text-center text-sm font-medium">
-          *เป็นงบประมาณที่ประกาศใช้ก่อนนายก อบจ.คนใหม่ เข้ารับตำแหน่ง
+          ข้อมูลงบประมาณรายจ่ายปี 2568 ตามประกาศใช้ข้อบัญญัติงบประมาณรายจ่ายฯ ลงนามโดยนายกองค์การบริหารส่วนจังหวัดลำพูน ณ วันที่ 13 กันยายน 2567
         </div>
-        
+
         {/* Decorative gradients */}
         <div className="fixed top-0 -left-40 w-80 h-80 bg-primary/20 rounded-full blur-3xl mix-blend-multiply"></div>
         <div className="fixed top-60 -right-20 w-80 h-80 bg-blue-400/10 rounded-full blur-3xl mix-blend-multiply"></div>
         <div className="fixed bottom-0 left-20 w-60 h-60 bg-green-400/10 rounded-full blur-3xl mix-blend-multiply"></div>
-        
+
         <Toaster />
         <Sonner />
         <BrowserRouter>
