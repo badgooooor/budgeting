@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '@/components/layout/Header';
 import PageContainer from '@/components/layout/PageContainer';
 import ProjectMap from '@/components/map/ProjectMap';
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from 'lucide-react';
 
 interface BudgetDataItem {
   id: string;
@@ -74,6 +77,14 @@ const ProjectMapPage = () => {
         title="แผนที่โครงการ"
         description="แสดงตำแหน่งที่ตั้งโครงการสาธารณะบนแผนที่"
       >
+        <div className="flex justify-end mb-4">
+          <Button variant="outline" asChild>
+            <Link to="/public-projects" className="flex items-center justify-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90">
+              ดูโครงการสาธารณะ
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </Button>
+        </div>
         {loading ? (
           <div className="flex items-center justify-center h-[500px]">
             <div className="space-y-4">

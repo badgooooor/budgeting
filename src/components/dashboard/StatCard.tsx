@@ -1,4 +1,3 @@
-
 import { ReactNode } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from '@/lib/utils';
@@ -11,6 +10,7 @@ interface StatCardProps {
   trend?: 'up' | 'down' | 'neutral';
   trendValue?: string;
   className?: string;
+  action?: ReactNode;
 }
 
 const StatCard = ({
@@ -20,7 +20,8 @@ const StatCard = ({
   icon,
   trend,
   trendValue,
-  className
+  className,
+  action
 }: StatCardProps) => {
   return (
     <Card className={cn("overflow-hidden", className)}>
@@ -62,6 +63,7 @@ const StatCard = ({
             {trendValue}
           </p>
         )}
+        {action}
       </CardContent>
     </Card>
   );

@@ -232,6 +232,14 @@ const Index = () => {
             value={`${formatNumber(publicProjectsCount)} โครงการ`}
             description={`จำนวนโครงการสาธารณะในข้อบัญญัติ`}
             icon={<Building />}
+            action={
+              <Button variant="outline" asChild className="w-full mt-2">
+                <Link to="/public-projects" className="flex items-center justify-center gap-2">
+                  ดูโครงการสาธารณะ
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </Button>
+            }
           />
         </div>
 
