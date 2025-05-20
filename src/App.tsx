@@ -17,8 +17,8 @@ const App = () => (
     <TooltipProvider>
       <div className="min-h-screen bg-background overflow-hidden">
         {/* Notification Bar */}
-        <div className="w-full bg-red-600 text-white py-2 text-center text-sm font-medium">
-          *งบประมาณปี 2568 ที่แสดง เป็นโครงการก่อนปรับการใช้งบประมาณใหม่ หลังนายก อบจ. เข้ารับตำแหน่ง
+        <div className="w-full bg-red-500 text-white py-2 text-center text-sm font-medium">
+          *เป็นงบประมาณที่ประกาศใช้ก่อนนายก อบจ.คนใหม่ เข้ารับตำแหน่ง
         </div>
         
         {/* Decorative gradients */}
