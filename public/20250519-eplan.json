@@ -4,10 +4,10 @@
       "": {
         "approved": 111570264.0,
         "increase": 0,
-        "decrease": 502700.0,
+        "decrease": 1368855.0,
         "committed": 0,
-        "disbursed": 7243130.5,
-        "remaining": 102870947.5,
+        "disbursed": 8546220.5,
+        "remaining": 99108032.5,
         "project_count": 104
       },
       "อุดหนุนเทศบาลตำบล ศรีบัวบาน ตาม": {
@@ -15,8 +15,8 @@
         "increase": 0,
         "decrease": 0,
         "committed": 0,
-        "disbursed": 0.0,
-        "remaining": 240000.0,
+        "disbursed": 240000.0,
+        "remaining": 0.0,
         "project_count": 1
       },
       "อุดหนุนเทศบาลตำบล ทาทุ่งหลวง ตาม": {
@@ -42,8 +42,8 @@
         "increase": 0,
         "decrease": 0,
         "committed": 0,
-        "disbursed": 0.0,
-        "remaining": 180000.0,
+        "disbursed": 180000.0,
+        "remaining": 0.0,
         "project_count": 1
       },
       "อุดหนุนเทศบาลตำบล  แม่แรง ตาม": {
@@ -120,13 +120,13 @@
       }
     },
     "total": {
-      "disbursed": 8798130.5,
+      "disbursed": 10521220.5,
       "committed": 0,
-      "remaining": 107565947.5,
+      "remaining": 103383032.5,
       "approved": 117820264.0
     },
     "metadata": {
-      "date": "31 มีนาคม 2568"
+      "date": "2025-05-22"
     }
   },
   "budget_data": [
@@ -206,8 +206,8 @@
       "budget": 240000.0,
       "decrease": 0,
       "increase": 0,
-      "disbursed": 0.0,
-      "remaining": 240000.0,
+      "disbursed": 240000.0,
+      "remaining": 0.0,
       "coordinates": null
     },
     {
@@ -236,8 +236,8 @@
       "budget": 180000.0,
       "decrease": 0,
       "increase": 0,
-      "disbursed": 0.0,
-      "remaining": 180000.0,
+      "disbursed": 180000.0,
+      "remaining": 0.0,
       "coordinates": null
     },
     {
@@ -408,10 +408,7 @@
       "increase": 0,
       "disbursed": 0.0,
       "remaining": 1900000.0,
-      "coordinates": [
-        98.9548684869806,
-        17.779933362554868
-      ]
+      "coordinates": null
     },
     {
       "id": "29",
@@ -421,10 +418,7 @@
       "increase": 0,
       "disbursed": 0.0,
       "remaining": 951000.0,
-      "coordinates": [
-        98.78600810390942,
-        17.635871217292046
-      ]
+      "coordinates": null
     },
     {
       "id": "30",
@@ -434,10 +428,7 @@
       "increase": 0,
       "disbursed": 0.0,
       "remaining": 2494000.0,
-      "coordinates": [
-        98.9544186232575,
-        17.70353665191587
-      ]
+      "coordinates": null
     },
     {
       "id": "31",
@@ -447,10 +438,7 @@
       "increase": 0,
       "disbursed": 0.0,
       "remaining": 2678000.0,
-      "coordinates": [
-        98.92859428414964,
-        17.864674202846423
-      ]
+      "coordinates": null
     },
     {
       "id": "32",
@@ -520,10 +508,7 @@
       "increase": 0,
       "disbursed": 0.0,
       "remaining": 2757000.0,
-      "coordinates": [
-        98.78656147384707,
-        18.18418605542919
-      ]
+      "coordinates": null
     },
     {
       "id": "39",
@@ -602,7 +587,7 @@
       "decrease": 0,
       "increase": 0,
       "disbursed": 0.0,
-      "remaining": 1327600.0,
+      "remaining": 358720.0,
       "coordinates": null
     },
     {
@@ -612,7 +597,7 @@
       "decrease": 0,
       "increase": 0,
       "disbursed": 0.0,
-      "remaining": 1321400.0,
+      "remaining": 403100.0,
       "coordinates": null
     },
     {
@@ -632,7 +617,7 @@
       "decrease": 50000.0,
       "increase": 0,
       "disbursed": 400000.0,
-      "remaining": 0.0,
+      "remaining": 50000.0,
       "coordinates": null
     },
     {
@@ -641,8 +626,8 @@
       "budget": 500000.0,
       "decrease": 0,
       "increase": 0,
-      "disbursed": 0.0,
-      "remaining": 500000.0,
+      "disbursed": 333300.0,
+      "remaining": 166700.0,
       "coordinates": null
     },
     {
@@ -661,8 +646,8 @@
       "budget": 500000.0,
       "decrease": 0,
       "increase": 0,
-      "disbursed": 0.0,
-      "remaining": 500000.0,
+      "disbursed": 497015.0,
+      "remaining": 2985.0,
       "coordinates": null
     },
     {
@@ -772,7 +757,7 @@
       "decrease": 0,
       "increase": 0,
       "disbursed": 0.0,
-      "remaining": 483900.0,
+      "remaining": 500000.0,
       "coordinates": null
     },
     {
@@ -801,28 +786,28 @@
       "budget": 300000.0,
       "decrease": 0,
       "increase": 0,
-      "disbursed": 0.0,
-      "remaining": 300000.0,
+      "disbursed": 103345.0,
+      "remaining": 196655.0,
       "coordinates": null
     },
     {
       "id": "67",
       "name": "โครงการอนุรักษ์ ฟื้นฟู ทรัพยากรธรรมชาติและสิ่งแวดล้อม ในจังหวัดลำพูน",
       "budget": 300000.0,
-      "decrease": 0,
+      "decrease": 100000.0,
       "increase": 0,
       "disbursed": 0.0,
-      "remaining": 300000.0,
+      "remaining": 200000.0,
       "coordinates": null
     },
     {
       "id": "68",
       "name": "โครงการส่งเสริมและฟื้นฟูพื้นที่สีเขียว",
       "budget": 300000.0,
-      "decrease": 0,
+      "decrease": 150000.0,
       "increase": 0,
       "disbursed": 0.0,
-      "remaining": 300000.0,
+      "remaining": 150000.0,
       "coordinates": null
     },
     {
@@ -849,10 +834,10 @@
       "id": "71",
       "name": "โครงการส่งเสริมการมีส่วนร่วมประชาชนในการพัฒนาท้องถิ่น",
       "budget": 3000000.0,
-      "decrease": 0,
+      "decrease": 500000.0,
       "increase": 0,
       "disbursed": 0.0,
-      "remaining": 3000000.0,
+      "remaining": 2500000.0,
       "coordinates": null
     },
     {
@@ -903,10 +888,7 @@
       "increase": 0,
       "disbursed": 0.0,
       "remaining": 1000000.0,
-      "coordinates": [
-        99.0084082954412,
-        18.577082078377998
-      ]
+      "coordinates": null
     },
     {
       "id": "77",
@@ -964,8 +946,8 @@
       "budget": 750000.0,
       "decrease": 0,
       "increase": 0,
-      "disbursed": 0.0,
-      "remaining": 750000.0,
+      "disbursed": 49300.0,
+      "remaining": 700700.0,
       "coordinates": null
     },
     {
@@ -976,10 +958,7 @@
       "increase": 0,
       "disbursed": 265400.0,
       "remaining": 0.0,
-      "coordinates": [
-        99.00417143528492,
-        18.574753214345865
-      ]
+      "coordinates": null
     },
     {
       "id": "84",
@@ -999,10 +978,7 @@
       "increase": 0,
       "disbursed": 0.0,
       "remaining": 300000.0,
-      "coordinates": [
-        98.92220540930653,
-        18.454938466589955
-      ]
+      "coordinates": null
     },
     {
       "id": "86",
@@ -1032,14 +1008,11 @@
       "increase": 0,
       "disbursed": 0.0,
       "remaining": 600000.0,
-      "coordinates": [
-        99.0528636673098,
-        18.54744216496308
-      ]
+      "coordinates": null
     },
     {
       "id": "89",
-      "name": "โครงการฝึกอบรมและการจัดกิจกรรมสืบสานวัฒนธรรมท้องถิ่นประเพณีพื้นบ้านภูมิปัญญาท้องถิ่นในจังหวัดลำพูน",
+      "name": "โครงการฝึกอบรมและการจัดกิจกรรมสืบสานวัฒนธรรมท้องถิ่นประเพณีพื้นบ้านภูมิปัญญาท้องถิ่นในจังหวัดลำพูน    ",
       "budget": 300000.0,
       "decrease": 0,
       "increase": 0,
@@ -1059,7 +1032,7 @@
     },
     {
       "id": "91",
-      "name": "โครงการอนุรักษ์พระดีศรีหริภุญชัยและเผยแพร่ภูมิปัญญา",
+      "name": "โครงการอนุรักษ์พระดีศรีหริภุญชัยและเผยแพร่ภูมิปัญญา ",
       "budget": 300000.0,
       "decrease": 0,
       "increase": 0,
@@ -1075,10 +1048,7 @@
       "increase": 0,
       "disbursed": 200000.0,
       "remaining": 0.0,
-      "coordinates": [
-        98.81773756934523,
-        18.286572932125203
-      ]
+      "coordinates": null
     },
     {
       "id": "93",
@@ -1182,7 +1152,7 @@
     },
     {
       "id": "103",
-      "name": "โครงการการแสดงผลงานและการแข่งขันทักษะวิชาการด้านภาษาและวัฒนธรรมไทย - จีน (อบจ.นิทัศน์)",
+      "name": "โครงการการแสดงผลงานและ การแข่งขันทักษะวิชาการด้านภาษาและวัฒนธรรมไทย - จีน (อบจ.นิทัศน์)",
       "budget": 500000.0,
       "decrease": 28100.0,
       "increase": 0,
@@ -1192,7 +1162,7 @@
     },
     {
       "id": "104",
-      "name": "โครงการพัฒนางานประกันคุณภาพการศึกษา",
+      "name": "โครงการพัฒนางานประกันคุณภาพการศึกษา ",
       "budget": 100000.0,
       "decrease": 0,
       "increase": 0,
@@ -1224,10 +1194,10 @@
       "id": "107",
       "name": "โครงการแข่งขันศิลปหัตถกรรมนักเรียนในสังกัดองค์กรปกครองส่วนท้องถิ่น ",
       "budget": 300000.0,
-      "decrease": 0,
+      "decrease": 116155.0,
       "increase": 0,
       "disbursed": 183845.0,
-      "remaining": 116155.0,
+      "remaining": 0.0,
       "coordinates": null
     },
     {
@@ -1238,10 +1208,7 @@
       "increase": 0,
       "disbursed": 1735403.0,
       "remaining": 1834977.0,
-      "coordinates": [
-        98.81423072020961,
-        18.301651708438893
-      ]
+      "coordinates": null
     },
     {
       "id": "109",
@@ -1339,13 +1306,13 @@
       "budget": 500000.0,
       "decrease": 0,
       "increase": 0,
-      "disbursed": 51658.0,
-      "remaining": 220932.0,
+      "disbursed": 371788.0,
+      "remaining": 128212.0,
       "coordinates": null
     }
   ],
   "metadata": {
-    "date": "31 มีนาคม 2568",
+    "date": "2025-05-22",
     "total_projects": 118
   }
 }

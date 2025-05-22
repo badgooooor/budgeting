@@ -21,7 +21,7 @@ def process_csv_to_json(csv_file, json_file):
                 'name': row['project'],
                 'budget': clean_number(row['budget']),
                 'decrease': clean_number(row['decrease']),
-                'increase': clean_number(row['Increase']),
+                'increase': clean_number(row['increase']),
                 'disbursed': clean_number(row['disbursement']),
                 'remaining': clean_number(row['remaining']),
                 'coordinates': None  # เตรียมไว้สำหรับข้อมูลพิกัด
@@ -83,7 +83,7 @@ def process_csv_to_json(csv_file, json_file):
         json.dump(output, f, ensure_ascii=False, indent=2)
 
 if __name__ == '__main__':
-    csv_file = '../public/20250519-eplan.csv'
-    json_file = '../public/20250519-eplan.json'
+    csv_file = '../public/20250522-eplan.csv'
+    json_file = '../public/20250522-eplan.json'
     process_csv_to_json(csv_file, json_file)
-    print(f'แปลงข้อมูลเสร็จสิ้น: {json_file}') 
+    print(f'แปลงข้อมูลเสร็จสิ้น: {json_file}')
