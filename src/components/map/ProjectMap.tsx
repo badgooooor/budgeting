@@ -31,18 +31,11 @@ const ProjectMap = ({ projects }: ProjectMapProps) => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [loading, setLoading] = useState(true);
 
-  console.log('ProjectMap component rendered');
-  console.log('Projects:', projects);
-  console.log('Map container:', mapContainer.current);
-
   // สร้าง map เมื่อ component mount แล้ว
   useLayoutEffect(() => {
     if (!mapContainer.current) {
-      console.log('No map container found');
       return;
     }
-
-    console.log('Initializing map with container:', mapContainer.current);
 
     try {
       map.current = new maplibregl.Map({
@@ -74,7 +67,6 @@ const ProjectMap = ({ projects }: ProjectMapProps) => {
 
       // Wait for map to load
       map.current.on('load', () => {
-        console.log('Map loaded successfully');
         setLoading(false);
 
         // Add navigation controls
@@ -134,7 +126,6 @@ const ProjectMap = ({ projects }: ProjectMapProps) => {
 
     // Cleanup
     return () => {
-      console.log('Cleaning up map');
       markers.current.forEach(marker => marker.remove());
       if (map.current) {
         map.current.remove();
