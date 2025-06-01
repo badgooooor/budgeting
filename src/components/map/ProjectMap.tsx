@@ -1,8 +1,8 @@
-import { useState, useEffect, useRef, useLayoutEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useSearchParams } from 'react-router-dom';
 import { Skeleton } from "@/components/ui/skeleton";
-import maplibregl from 'maplibre-gl';
+import Map, { NavigationControl, Marker, Popup } from 'react-map-gl/maplibre';
 import 'maplibre-gl/dist/maplibre-gl.css';
 
 interface Project {
@@ -17,144 +17,37 @@ interface Project {
     lat: number;
     lng: number;
   };
-}
+};
 
 interface ProjectMapProps {
   projects: Project[];
-}
+};
+
+// Initial view state: Lamphun
+const INITIAL_VIEW_STATE = {
+  longitude: 98.93273443954536,
+  latitude: 18.09850631134027,
+  zoom: 8
+};
 
 const ProjectMap = ({ projects }: ProjectMapProps) => {
   const [searchParams] = useSearchParams();
-  const mapContainer = useRef<HTMLDivElement>(null);
-  const map = useRef<maplibregl.Map | null>(null);
-  const markers = useRef<maplibregl.Marker[]>([]);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [loading, setLoading] = useState(true);
+  const [viewState, setViewState] = useState(INITIAL_VIEW_STATE);
+  const [popupInfo, setPopupInfo] = useState<Project | null>(null);
 
-  console.log('ProjectMap component rendered');
-  console.log('Projects:', projects);
-  console.log('Map container:', mapContainer.current);
-
-  // สร้าง map เมื่อ component mount แล้ว
-  useLayoutEffect(() => {
-    if (!mapContainer.current) {
-      console.log('No map container found');
-      return;
-    }
-
-    console.log('Initializing map with container:', mapContainer.current);
-
-    try {
-      map.current = new maplibregl.Map({
-        container: mapContainer.current,
-        style: {
-          version: 8,
-          sources: {
-            'raster-tiles': {
-              type: 'raster',
-              tiles: [
-                'https://tile.openstreetmap.org/{z}/{x}/{y}.png'
-              ],
-              tileSize: 256,
-              attribution: '© OpenStreetMap contributors'
-            }
-          },
-          layers: [{
-            id: 'simple-tiles',
-            type: 'raster',
-            source: 'raster-tiles',
-            minzoom: 0,
-            maxzoom: 22
-          }]
-        },
-        center: [98.93273443954536, 18.09850631134027], // ลำพูน
-        zoom: 8,
-        attributionControl: false
-      });
-
-      // Wait for map to load
-      map.current.on('load', () => {
-        console.log('Map loaded successfully');
-        setLoading(false);
-
-        // Add navigation controls
-        map.current?.addControl(new maplibregl.NavigationControl(), 'top-right');
-
-        // Add attribution
-        map.current?.addControl(new maplibregl.AttributionControl({
-          compact: true
-        }), 'bottom-right');
-
-        // Add markers for each project
-        projects.forEach(project => {
-          const marker = new maplibregl.Marker({
-            color: project.status === 'completed' ? '#4ade80' :
-              project.status === 'in-progress' ? '#f59e0b' : '#94a3b8'
-          })
-            .setLngLat([project.coordinates.lng, project.coordinates.lat])
-            .setPopup(
-              new maplibregl.Popup({ offset: 25 })
-                .setHTML(`
-                  <div class="p-2">
-                    <h3 class="font-medium">${project.name}</h3>
-                    <p class="text-sm text-muted-foreground">${project.category}</p>
-                    <div class="mt-2 space-y-1">
-                      <div class="flex justify-between">
-                        <span class="text-sm">งบประมาณ:</span>
-                        <span class="font-medium">${formatCurrency(project.budget)}</span>
-                      </div>
-                      <div class="flex justify-between">
-                        <span class="text-sm">สถานะ:</span>
-                        <span class="font-medium">${getStatusText(project.status)}</span>
-                      </div>
-                    </div>
-                  </div>
-                `)
-            )
-            .addTo(map.current!);
-
-          marker.getElement().addEventListener('click', () => {
-            setSelectedProject(project);
-          });
-
-          markers.current.push(marker);
-        });
-      });
-
-      // Handle map errors
-      map.current.on('error', (e) => {
-        console.error('Map error:', e);
-        setLoading(false);
-      });
-
-    } catch (error) {
-      console.error('Error initializing map:', error);
-      setLoading(false);
-    }
-
-    // Cleanup
-    return () => {
-      console.log('Cleaning up map');
-      markers.current.forEach(marker => marker.remove());
-      if (map.current) {
-        map.current.remove();
-      }
-    };
-  }, [projects]);
-
-  // Find the project from URL params if any
   useEffect(() => {
     const projectId = searchParams.get('project');
     if (projectId) {
       const project = projects.find(p => p.id === projectId);
       if (project) {
         setSelectedProject(project);
-        if (map.current) {
-          map.current.flyTo({
-            center: [project.coordinates.lng, project.coordinates.lat],
-            zoom: 14
-          });
-        }
+        setViewState({
+          longitude: project.coordinates.lng,
+          latitude: project.coordinates.lat,
+          zoom: 14
+        });
       }
     }
   }, [projects, searchParams]);
@@ -188,17 +81,74 @@ const ProjectMap = ({ projects }: ProjectMapProps) => {
               </CardDescription>
             </CardHeader>
             <CardContent className="p-0 h-[400px]">
-              {/* {loading ? (
-                <div className="h-full w-full flex items-center justify-center">
-                  <div className="space-y-4">
-                    <Skeleton className="h-8 w-32 mx-auto" />
-                    <Skeleton className="h-32 w-32 rounded-full mx-auto" />
-                    <Skeleton className="h-4 w-48 mx-auto" />
-                  </div>
-                </div>
-              ) : ( */}
-              <div className="h-full w-full relative" ref={mapContainer} />
-              {/* )} */}
+              <Map
+                {...viewState}
+                onMove={evt => setViewState(evt.viewState)}
+                style={{width: '100%', height: '100%'}}
+                mapStyle={{
+                  version: 8,
+                  sources: {
+                    'osm': {
+                      type: 'raster',
+                      tiles: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],
+                      tileSize: 256,
+                      attribution: '© OpenStreetMap contributors'
+                    }
+                  },
+                  layers: [
+                    {
+                      id: 'osm-tiles',
+                      type: 'raster',
+                      source: 'osm',
+                      minzoom: 0,
+                      maxzoom: 19
+                    }
+                  ]
+                }}
+              >
+                <NavigationControl position="top-right" />
+                
+                {projects.map((project) => (
+                  <Marker
+                    key={project.id}
+                    longitude={project.coordinates.lng}
+                    latitude={project.coordinates.lat}
+                    color={
+                      project.status === 'completed' ? '#4ade80' :
+                      project.status === 'in-progress' ? '#f59e0b' : '#94a3b8'
+                    }
+                    onClick={e => {
+                      e.originalEvent.stopPropagation();
+                      setPopupInfo(project);
+                      setSelectedProject(project);
+                    }}
+                  />
+                ))}
+
+                {popupInfo && (
+                  <Popup
+                    longitude={popupInfo.coordinates.lng}
+                    latitude={popupInfo.coordinates.lat}
+                    anchor="bottom"
+                    onClose={() => setPopupInfo(null)}
+                  >
+                    <div className="p-2">
+                      <h3 className="font-medium">{popupInfo.name}</h3>
+                      <p className="text-sm text-muted-foreground">{popupInfo.category}</p>
+                      <div className="mt-2 space-y-1">
+                        <div className="flex justify-between">
+                          <span className="text-sm">งบประมาณ:</span>
+                          <span className="font-medium">{formatCurrency(popupInfo.budget)}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-sm">สถานะ:</span>
+                          <span className="font-medium">{getStatusText(popupInfo.status)}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </Popup>
+                )}
+              </Map>
             </CardContent>
           </Card>
         </div>
